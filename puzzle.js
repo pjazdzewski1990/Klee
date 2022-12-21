@@ -86,7 +86,7 @@ const isDoer = !isSpeaker;
 // by default the deadline is: now + 5m so 5m of work
 function defaultDeadline() {
     // for test we reduce that to a low value
-    const minutesForRiddleByDefault = 5;
+    const minutesForRiddleByDefault = 10;
     return new Date().getTime() + (1 + 1000 * 60 * minutesForRiddleByDefault);
 }
 
@@ -98,7 +98,6 @@ window.onload = function() {
             const position = c + r * columns;
             const riddlePart = riddleToSolve.getRiddlePart(position);
             const tile = riddlePartRenderer(c, r, riddlePart);
-            console.log("is doer?", isDoer);
             if(isDoer) {
                 // doer can move the tiles
                 appendInteractionToTile(tile);
@@ -274,7 +273,7 @@ function setupTimer(endTimestamp) {
 function timerTick() {
     timerTimeLeft = Math.max(timerTimeLeft-1, 0);
     reRenderTheTimer();
-    if(timerTimeLeft < 30) { // TODO
+    if(timerTimeLeft < 30) {
         shakeElementById("timer");
     }
     if(!gameIsDone) {
