@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klee - the game</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- TODO: use from cdn -->
+  <script src="deps/circle-progress.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+  <script src="puzzle.js"></script>
+</head>
+
+<body>
+<br>
+  <div id="board"></div>
+  <h2>Time left: <span id="timer">0</span></h2>
+
+  <div id="doer_ui" class="hidden">
+    <!-- For the doer -->
+    <div id="progress"></div>
+  </div>
+
+  <div id="speaker_ui" class="hidden">
+    <!-- For the speaker -->
+    <span id="link"></span>
+    <button id="create_link">Create link</button>
+  </div>
+</body>
+</html>
