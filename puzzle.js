@@ -1,7 +1,9 @@
-// use for debug
-const resourceDir = "test_res"
+// check if we are running the app locally or not
+const isDebug = (window.location.href.indexOf("localhost") != -1);
+
+//const resourceDir = "test_res"
 // use for the real app
-//const resourceDir = "res"
+const resourceDir = isDebug? "test_res" : "res";
 
 // size of the board
 const rows = 5;
@@ -61,7 +63,7 @@ const currentAnswer = [];
 
 function riddlePartRenderer(xCoord, yCoord, riddlePosition) {
     const tile = document.createElement("img");
-    tile.src = `./${resourceDir}/${riddlePosition}.jpg`;
+    tile.src = `./${resourceDir}/${riddlePosition}.png`;
 
     tile.setAttribute(attributeForXCoordinate, xCoord);
     tile.setAttribute(attributeForYCoordinate, yCoord);
