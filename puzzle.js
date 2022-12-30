@@ -88,7 +88,7 @@ const isDoer = !isSpeaker;
 // by default the deadline is: now + 5m so 5m of work
 function defaultDeadline() {
     // for test we reduce that to a low value
-    const minutesForRiddleByDefault = 12;
+    const minutesForRiddleByDefault = 10;
     return new Date().getTime() + (1 + 1000 * 60 * minutesForRiddleByDefault);
 }
 
@@ -273,6 +273,7 @@ function setupTimer(endTimestamp) {
 }
 
 function timerTick() {
+    //TODO: should recalculate the time against the goal, not just assume 1 tick = 1 second
     timerTimeLeft = Math.max(timerTimeLeft-1, 0);
     reRenderTheTimer();
     if(timerTimeLeft < 30) {
