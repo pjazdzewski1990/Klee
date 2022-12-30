@@ -88,7 +88,7 @@ const isDoer = !isSpeaker;
 // by default the deadline is: now + 5m so 5m of work
 function defaultDeadline() {
     // for test we reduce that to a low value
-    const minutesForRiddleByDefault = 10;
+    const minutesForRiddleByDefault = 12;
     return new Date().getTime() + (1 + 1000 * 60 * minutesForRiddleByDefault);
 }
 
