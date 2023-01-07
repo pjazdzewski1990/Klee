@@ -72,16 +72,12 @@ function riddlePartRenderer(xCoord, yCoord, riddlePosition) {
 }
 
 function appendInteractionToTile(tile) {
-    //desktop
     tile.addEventListener("dragstart", dragStart);
-    tile.addEventListener("drop", dragDrop);
-    tile.addEventListener("dragend", dragEnd);
     tile.addEventListener("dragover", dragOver);
     tile.addEventListener("dragenter", dragEnter);
     tile.addEventListener("dragleave", dragLeave);
-    //mobile
-    tile.addEventListener("touchmove", dragStart);
-    tile.addEventListener("dragDrop", (e) => { dragDrop(e); dragEnd(e); });
+    tile.addEventListener("drop", dragDrop);
+    tile.addEventListener("dragend", dragEnd);
     return tile;
 }
 
