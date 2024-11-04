@@ -14,25 +14,8 @@ body {
 }
 
 #board img {
-    width: 79px;
-    height: 79px;
-    border: 0.5px solid white;
-}
-
-
-#pieces {
-    width: 1040px;
-    height: 160px;
-    border: 2px solid black;
-
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#pieces img {
-    width: 79px;
-    height: 79px;
+    width: 78px;
+    height: 78px;
     border: 0.5px solid white;
 }
 
