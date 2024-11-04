@@ -22,7 +22,6 @@ class Riddle {
     static defaultRiddleString = "01020304050607080910111213141516171819202122232425";
 
     static randomizeRiddleString(answer) {
-//        return "25020304050607080910111213141516171819202122232401";
         const parts = answer.match(/.{1,2}/g);
         const shuffled = parts.sort(() => Math.random() - 0.5);
         return shuffled.join("");
@@ -57,7 +56,6 @@ function riddleFromUrl() {
     }
 }
 
-//const riddleToSolve = new Riddle("01020304050607080910111213141516171819202122232425");
 const riddleToSolve = riddleFromUrl();
 const currentAnswer = [];
 
