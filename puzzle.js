@@ -133,8 +133,14 @@ function setupShareLinkButton() {
         const deadline = defaultDeadline();
         console.log("click, deadline=", new Date(deadline));
         const url = generateLink(riddleToSolve, deadline);
-        document.getElementById("link").innerText = url;
-        document.getElementById("create_link").classList.add("hidden");
+
+        // put the link into the clipboard
+        navigator.clipboard
+            .writeText(url)
+            .then(res => {
+                document.getElementById("create_link").innerHTML = "Copied!"
+            })
+            .catch(error => console.error(error.message));
 
         setupTimer(deadline);
     });
