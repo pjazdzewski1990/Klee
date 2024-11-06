@@ -156,10 +156,14 @@ let progress = null;
 let submitting = false;
 let gameIsDone = false;
 
+let howManyUpdatesToProgress = 25;
+let howManyUpdatesToProgressShouldBeFast = 20;
+
 function setupSubmitButton() {
     progress = new CircleProgress("#progress", {
         value: 0,
-        max: 10,
+        max: howManyUpdatesToProgress,
+        textFormat: 'none',
     });
     document.getElementById("progress").addEventListener("click", () => {
         if(!submitting) {
@@ -171,12 +175,11 @@ function setupSubmitButton() {
 }
 
 function submitButtonProgress(round) {
-    const delayRound = Math.max(1, round - 5);
-    const delay = delayRound * round * 75;
+    const delay = round<=howManyUpdatesToProgressShouldBeFast ? 250 : round*100;
 //    console.log("Running submitButtonProgress", round, delay);
     progress.attr({ value: progress.attr('value') + 1 });
 
-    if(round < 9) {
+    if(round < (howManyUpdatesToProgress-1)) {
         window.setTimeout(submitButtonProgress, delay, round + 1);
     } else {
         window.setTimeout(submitButtonCheck, 500);

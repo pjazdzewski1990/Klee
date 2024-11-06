@@ -42,11 +42,21 @@ body {
   }
 }
 
+.circle-progress-value {
+  stroke-width: 6px;
+  stroke: hsl(356, 80%, 60%);
+  stroke-dasharray: 4 1;
+}
+.circle-progress-circle {
+  stroke-width: 6px;
+  stroke: #000;
+}
+
 .gameisover {
-    background-color: lightgrey;
+  background-color: lightgrey;
 }
 
 .hidden {
-    display: none;
-    visibility: hidden;
+  display: none;
+  visibility: hidden;
 }
