@@ -152,8 +152,6 @@ function setupShareLinkButton() {
     });
 };
 
-///// FOR DOER /////
-
 ///// HANDLE SUBMIT /////
 
 // prepare the progress bar
@@ -319,3 +317,13 @@ function reRenderTheTimer() {
     const formatted = `${minutePart.toString().padStart(2,'0')}:${secondPart.toString().padStart(2,'0')}`;
     document.getElementById("timer").innerText = formatted;
 }
+
+
+///// TOUR /////
+
+window.addEventListener('load', function () {
+    const tg = new tourguide.TourGuideClient({
+        exitOnClickOutside: true
+    });
+    tg.start();
+});

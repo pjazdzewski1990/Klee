@@ -5,16 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Klee - the game</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/@sjmc11/tourguidejs/dist/css/tour.min.css">
   <!-- TODO: use from cdn -->
   <script src="deps/circle-progress.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+  <script src="https://unpkg.com/@sjmc11/tourguidejs/dist/tour.js" crossorigin="anonymous" referrerpolicy="no-referrer" type="module"></script>
   <script src="puzzle.js"></script>
 </head>
 
 <body>
 <br>
-  <div id="board"></div>
-  <h2>Time left: <div id="timer"></div></h2>
+  <div id="board"
+    data-tg-tour='<p>This is your riddle! Communicate with your partner to crack it</p>'
+    data-tg-order="0">
+  </div>
+  <h2 
+    data-tg-tour='<p>Your partner needs to reproduce the riddle on their end before time is up</p>'
+    data-tg-order="1">
+    Time left: <div id="timer"></div>
+  </h2>
 
   <div id="doer_ui" class="hidden">
     <!-- For the doer -->
@@ -23,7 +32,17 @@
 
   <div id="speaker_ui" class="hidden">
     <!-- For the speaker -->
-    <button id="create_link">Copy invite link to the clipboard</button> and <strong>send it to your partner</strong>
+    <button id="create_link"
+      data-tg-tour='<p>Clicking here will provide you with the game link and start it</p>'
+      data-tg-order="2" >
+      Copy invite link to the clipboard
+    </button>
+     and 
+    <strong
+      data-tg-tour='<p>Good luck! Have fun</p>'
+      data-tg-order="3">
+      send it to your partner
+    </strong>
   </div>
 </body>
 </html>
