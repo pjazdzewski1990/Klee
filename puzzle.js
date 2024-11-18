@@ -1,3 +1,5 @@
+
+///// STATIC SETUP /////
 // check if we are running the app locally or not
 const isDebug = (window.location.href.indexOf("localhost") != -1);
 
@@ -12,6 +14,7 @@ const columns = 5;
 const attributeForXCoordinate = "data-coord-x"
 const attributeForYCoordinate = "data-coord-y"
 
+///// RIDDLE HELPER CLASS /////
 class Riddle {
     constructor(answer) {
         // this is the expected result
@@ -42,6 +45,7 @@ class Riddle {
     }
 }
 
+///// HANDLE RIDDLE /////
 function getUrlParamByName(name) {
     const params = new URLSearchParams(document.location.search);
     return params.get(name);
@@ -69,6 +73,17 @@ function riddlePartRenderer(xCoord, yCoord, riddlePosition) {
     return tile;
 }
 
+///// HANDLE TIME /////
+
+// by default the deadline is: now + 5m so 5m of work
+function defaultDeadline() {
+    // for test we reduce that to a low value
+    const minutesForRiddleByDefault = 10;
+    return new Date().getTime() + (1 + 1000 * 60 * minutesForRiddleByDefault);
+}
+
+///// RENDER RIDDLE /////
+
 function appendInteractionToTile(tile) {
     tile.addEventListener("dragstart", dragStart);
     tile.addEventListener("dragover", dragOver);
@@ -77,17 +92,6 @@ function appendInteractionToTile(tile) {
     tile.addEventListener("drop", dragDrop);
     tile.addEventListener("dragend", dragEnd);
     return tile;
-}
-
-// there are 2 players - speaker and doer
-const isSpeaker = !getUrlParamByName("riddle");
-const isDoer = !isSpeaker;
-
-// by default the deadline is: now + 5m so 5m of work
-function defaultDeadline() {
-    // for test we reduce that to a low value
-    const minutesForRiddleByDefault = 10;
-    return new Date().getTime() + (1 + 1000 * 60 * minutesForRiddleByDefault);
 }
 
 window.onload = function() {
@@ -119,9 +123,11 @@ window.onload = function() {
     }
 }
 
-////
-//// For speaker
-////
+// there are 2 players - speaker and doer
+const isSpeaker = !getUrlParamByName("riddle");
+const isDoer = !isSpeaker;
+
+///// FOR SPEAKER /////
 
 function generateLink(riddleToSolve, deadline) {
     const host = window.location.href;
@@ -146,9 +152,9 @@ function setupShareLinkButton() {
     });
 };
 
-////
-//// For doer
-////
+///// FOR DOER /////
+
+///// HANDLE SUBMIT /////
 
 // prepare the progress bar
 // using https://github.com/tigrr/circle-progress
@@ -214,7 +220,7 @@ function celebrateById(id) {
     });
 }
 
-//DRAG TILES
+///// DRAGGING TILES /////
 var currTile;
 var otherTile;
 
@@ -268,6 +274,8 @@ function dragEnd() {
     // update the move counter
     moves += 1;
 }
+
+///// HANDLE TIME /////
 
 // in seconds
 var timerTimeLeft = 0;
