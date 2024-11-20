@@ -15,13 +15,8 @@
 
 <body>
 <br>
-  <div id="board"
-    data-tg-tour='<p>This is your riddle! Communicate with your partner to crack it</p>'
-    data-tg-order="0">
-  </div>
-  <h2 
-    data-tg-tour='<p>Your partner needs to reproduce the riddle on their end before time is up</p>'
-    data-tg-order="1">
+  <div id="board"></div>
+  <h2 id="timer_section">
     Time left: <div id="timer"></div>
   </h2>
 
@@ -32,15 +27,11 @@
 
   <div id="speaker_ui" class="hidden">
     <!-- For the speaker -->
-    <button id="create_link"
-      data-tg-tour='<p>Clicking here will provide you with the game link and start it</p>'
-      data-tg-order="2" >
+    <button id="create_link">
       Copy invite link to the clipboard
     </button>
      and 
-    <strong
-      data-tg-tour='<p>Good luck! Have fun</p>'
-      data-tg-order="3">
+    <strong id="submit_section">
       send it to your partner
     </strong>
   </div>
