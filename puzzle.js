@@ -14,6 +14,10 @@ const columns = 5;
 const attributeForXCoordinate = "data-coord-x"
 const attributeForYCoordinate = "data-coord-y"
 
+// there are 2 players - speaker and doer
+const isSpeaker = !getUrlParamByName("riddle");
+const isDoer = !isSpeaker;
+
 ///// RIDDLE HELPER CLASS /////
 class Riddle {
     constructor(answer) {
@@ -122,10 +126,6 @@ window.onload = function() {
         setupTimer(parseInt(getUrlParamByName("deadline"), 10) || defaultDeadline());
     }
 }
-
-// there are 2 players - speaker and doer
-const isSpeaker = !getUrlParamByName("riddle");
-const isDoer = !isSpeaker;
 
 ///// FOR SPEAKER /////
 
@@ -322,8 +322,60 @@ function reRenderTheTimer() {
 ///// TOUR /////
 
 window.addEventListener('load', function () {
+    const stepsForSpeaker = [{
+        content: "<p>This is your riddle! Communicate with your partner to crack it</p>",
+        title: "",
+        target: "#board",
+        order: "0",
+        group: "tour-speaker",
+    },{
+        content: "<p>Your partner needs to reproduce the riddle on their end before time is up</p>",
+        title: "",
+        target: "#timer_section",
+        order: "1",
+        group: "tour-speaker",
+    },{
+        content: "<p>Clicking here will provide you with the game link and start it</p>",
+        title: "",
+        target: "#create_link",
+        order: "2",
+        group: "tour-speaker",
+    },{
+        content: "<p>Good luck! Have fun</p>",
+        title: "",
+        target: "#submit_section",
+        order: "3",
+        group: "tour-doer",
+    }];
+    const stepsForDoer = [
+    {
+        content: "<p>This is your riddle! Move the pieces around so that your riddle is the same as your partners</p>",
+        title: "",
+        target: "#board",
+        order: "0",
+        group: "tour-speaker",
+    },{
+        content: "<p>Click here to check if your answer</p>",
+        title: "",
+        target: "#progress",
+        order: "1",
+        group: "tour-doer",
+    },{
+        content: "<p>You need to crack the riddle before time is up</p>",
+        title: "",
+        target: "#timer_section",
+        order: "2",
+        group: "tour-doer",
+    },{
+        content: "<p>Good luck! Have fun</p>",
+        title: "",
+        target: "#submit_section",
+        order: "3",
+        group: "tour-doer",
+    }];
     const tg = new tourguide.TourGuideClient({
-        exitOnClickOutside: true
+        exitOnClickOutside: true,
+        steps: isSpeaker? stepsForSpeaker : stepsForDoer
     });
     tg.start();
 });
