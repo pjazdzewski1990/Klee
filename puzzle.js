@@ -5,7 +5,7 @@ const isDebug = (window.location.href.indexOf("localhost") != -1);
 
 //const resourceDir = "test_res"
 // use for the real app
-const resourceDir = isDebug? "test_res" : "res";
+// const resourceDir = isDebug? "test_res" : "res";
 
 // size of the board
 const rows = 5;
@@ -19,10 +19,12 @@ const isSpeaker = !getUrlParamByName("riddle");
 const isDoer = !isSpeaker;
 
 ///// RIDDLE HELPER CLASS /////
+
 class Riddle {
-    constructor(answer) {
+    constructor(answer, riddleSource) {
         // this is the expected result
         this.answer = answer;
+        this.riddleSource = riddleSource;
         this.riddle = Riddle.randomizeRiddleString(answer);
     }
 
@@ -32,6 +34,17 @@ class Riddle {
         const parts = answer.match(/.{1,2}/g);
         const shuffled = parts.sort(() => Math.random() - 0.5);
         return shuffled.join("");
+    }
+
+    static randomizeRiddleSource() {
+        if(isDebug) return "01";
+
+        const knownSources = ["01", "02"];
+        return knownSources[Math.floor(Math.random() * knownSources.length)];
+    }
+
+    getRiddleSource() {
+        return this.riddleSource;
     }
 
     getRiddlePart(position) {
@@ -45,11 +58,12 @@ class Riddle {
     }
 
     riddleAsUrl() {
-        return this.riddle;
+        return `riddle=${this.riddle}&source=${this.riddleSource}`;
     }
 }
 
 ///// HANDLE RIDDLE /////
+
 function getUrlParamByName(name) {
     const params = new URLSearchParams(document.location.search);
     return params.get(name);
@@ -57,19 +71,20 @@ function getUrlParamByName(name) {
 
 function riddleFromUrl() {
     const riddleStr = getUrlParamByName("riddle");
+    const riddleSource = getUrlParamByName("source");
     if(riddleStr) {
-        return new Riddle(riddleStr);
+        return new Riddle(riddleStr, riddleSource);
     } else {
-        return new Riddle(Riddle.randomizeRiddleString(Riddle.defaultRiddleString));
+        return new Riddle(Riddle.randomizeRiddleString(Riddle.defaultRiddleString), Riddle.randomizeRiddleSource());
     }
 }
 
 const riddleToSolve = riddleFromUrl();
 const currentAnswer = [];
 
-function riddlePartRenderer(xCoord, yCoord, riddlePosition) {
+function riddlePartRenderer(xCoord, yCoord, riddleSource, riddlePosition) {
     const tile = document.createElement("img");
-    tile.src = `./${resourceDir}/${riddlePosition}.png`;
+    tile.src = `./res/${riddleSource}/${riddlePosition}.png`;
 
     tile.setAttribute(attributeForXCoordinate, xCoord);
     tile.setAttribute(attributeForYCoordinate, yCoord);
@@ -99,13 +114,14 @@ function appendInteractionToTile(tile) {
 }
 
 window.onload = function() {
+    const riddleSource = riddleToSolve.getRiddleSource();
     //initialize the 5x5 board
     for (let r = 0; r < rows; r++) {
         const row = [];
         for (let c = 0; c < columns; c++) {
             const position = c + r * columns;
             const riddlePart = riddleToSolve.getRiddlePart(position);
-            const tile = riddlePartRenderer(c, r, riddlePart);
+            const tile = riddlePartRenderer(c, r, riddleSource, riddlePart);
             if(isDoer) {
                 // doer can move the tiles
                 appendInteractionToTile(tile);
@@ -131,7 +147,7 @@ window.onload = function() {
 
 function generateLink(riddleToSolve, deadline) {
     const host = window.location.href;
-    return `${host}?riddle=${riddleToSolve.riddleAsUrl()}&deadline=${deadline}`;
+    return `${host}?${riddleToSolve.riddleAsUrl()}&deadline=${deadline}`;
 }
 
 function setupShareLinkButton() {
@@ -219,6 +235,7 @@ function celebrateById(id) {
 }
 
 ///// DRAGGING TILES /////
+
 var currTile;
 var otherTile;
 
