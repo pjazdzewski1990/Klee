@@ -3,10 +3,6 @@
 // check if we are running the app locally or not
 const isDebug = (window.location.href.indexOf("localhost") != -1);
 
-//const resourceDir = "test_res"
-// use for the real app
-// const resourceDir = isDebug? "test_res" : "res";
-
 // size of the board
 const rows = 5;
 const columns = 5;
@@ -37,9 +33,9 @@ class Riddle {
     }
 
     static randomizeRiddleSource() {
-        if(isDebug) return "01";
+        // if(isDebug) return "01";
 
-        const knownSources = ["01", "02"];
+        const knownSources = ["01", "02", "03"];
         return knownSources[Math.floor(Math.random() * knownSources.length)];
     }
 
