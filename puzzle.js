@@ -289,19 +289,19 @@ function dragEnd() {
 ///// HANDLE TIME /////
 
 // in seconds
-var timerTimeLeft = 0;
+var timerEndTimestamp = 0;
 
 function setupTimer(endTimestamp) {
-    const secondsToCount = Math.floor((new Date(endTimestamp) - new Date())/1000);
-    timerTimeLeft = secondsToCount;
-    reRenderTheTimer();
+    timerEndTimestamp = endTimestamp;
+    timerTick();
     window.setTimeout(timerTick, 1000)
 }
 
 function timerTick() {
     //TODO: should recalculate the time against the goal, not just assume 1 tick = 1 second
-    timerTimeLeft = Math.max(timerTimeLeft-1, 0);
-    reRenderTheTimer();
+    const secondsToCount = Math.floor((new Date(timerEndTimestamp) - new Date())/1000);
+    const timerTimeLeft = Math.max(secondsToCount-1, 0);
+    reRenderTheTimer(timerTimeLeft);
     if(timerTimeLeft < 30) {
         shakeElementById("timer");
     }
@@ -324,7 +324,7 @@ function endTheGame() {
     document.body.classList.add("gameisover");
 }
 
-function reRenderTheTimer() {
+function reRenderTheTimer(timerTimeLeft) {
     const minutePart = Math.floor(timerTimeLeft / 60);
     const secondPart = Math.floor(timerTimeLeft % 60);
     const formatted = `${minutePart.toString().padStart(2,'0')}:${secondPart.toString().padStart(2,'0')}`;
