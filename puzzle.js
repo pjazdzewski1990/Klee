@@ -35,7 +35,7 @@ class Riddle {
     static randomizeRiddleSource() {
         // if(isDebug) return "01";
 
-        const knownSources = ["03", "04", "05", "06", "07"];
+        const knownSources = ["03", "04", "05", "06", "07", "08"];
         return knownSources[Math.floor(Math.random() * knownSources.length)];
     }
 
